@@ -7,15 +7,10 @@ use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 
 use App\Models\GuestBooksModel;
+use App\Models\EmployeesModel;
 
 class Guest extends ResourceController
 {
-    protected $guestBookModel;
-
-    public function __construct()
-    {
-        $this->guestBookModel = new \App\Models\GuestBooksModel;
-    }
     
     /**
      * Return an array of resource objects, themselves in array format.
@@ -24,7 +19,9 @@ class Guest extends ResourceController
      */
     public function index()
     {
-        
+        $employeesModel = new EmployeesModel;
+        $data = $employeesModel->getMeetingWith();
+        return $this->respond($data);
     }
 
     /**
@@ -36,7 +33,7 @@ class Guest extends ResourceController
      */
     public function show($id = null)
     {
-        //
+        
     }
 
     /**
@@ -46,6 +43,7 @@ class Guest extends ResourceController
      */
     public function create()
     {
+        helper(['form']);
         $rules = [
             'institutionName' => 'required',
             'PICName' => 'required',
@@ -72,9 +70,19 @@ class Guest extends ResourceController
             'LiveCamPhoto' => $this->request->getVar('identityPhoto')
         ];
         
-        $this->guestBookModel->save($data);
+        
+        $guestBookModel = new GuestBooksModel;
+        $guestBookModel->save($data);
 
-        return $this->respondCreated('Data telah tersimpan');
+        $response = [
+            'status' => 201,
+            'error' => null,
+            'message' => [
+                'success' => 'Data Inserted'
+            ]
+        ];
+
+        return $this->respondCreated($response);
     }
 
     /**

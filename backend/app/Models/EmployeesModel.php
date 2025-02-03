@@ -10,7 +10,7 @@ class EmployeesModel extends Model
     protected $primaryKey       = 'Id';
     protected $allowedFields = ['Name', 'Password', 'Email', 'IsAdmin', 'Photo'];
 
-    public function getMeetingWith () {
+    public function getMeetingWith() {
         return $this->db->table('employees')
                         ->select('employees.Id, Name, Position')
                         ->join('guestbooks', 'employees.Id=guestbooks.EmployeeId')
