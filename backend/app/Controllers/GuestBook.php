@@ -9,7 +9,7 @@ use CodeIgniter\API\ResponseTrait;
 use App\Models\GuestBooksModel;
 use App\Models\EmployeesModel;
 
-class Guest extends ResourceController
+class GuestBook extends ResourceController
 {
     
     /**
@@ -69,7 +69,6 @@ class Guest extends ResourceController
             'Purpose' => $this->request->getVar('agendaDetails'),
             'LiveCamPhoto' => $this->request->getVar('identityPhoto')
         ];
-        
         
         $guestBookModel = new GuestBooksModel;
         $guestBookModel->save($data);
