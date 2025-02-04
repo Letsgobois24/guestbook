@@ -36,7 +36,8 @@ class GuestBook extends Migration
             'room_id'  => [
                 'type'          => 'INT',
                 'constraint'    => 10,
-                'unsigned'      => true
+                'unsigned'      => true,
+                'null'          => true
             ],
             
             'agenda' => [
